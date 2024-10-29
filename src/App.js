@@ -1,25 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import { useStore, action } from './store'
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [ state, dispatch ] = useStore();
+    const { todo, todoInput } = state;
+
+    return (
+        <div>
+            <input
+                type="text"
+                value={todoInput}
+                onChange={(e) => dispatch(action.setTodo(e.target.value))}
+            />
+            <br/>
+            <button>Add</button>
+
+            <ul>
+                {todo.map((ele, index) => (
+                    <li key={index}>
+                        {ele}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
 export default App;
